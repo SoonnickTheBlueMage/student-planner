@@ -169,6 +169,9 @@ function initSortable() {
             preventOnFilter: false,
             forceFallback: true,
             fallbackOnBody: true,
+            delay: 150,
+            delayOnTouchOnly: true,
+            touchStartThreshold: 3,
             onEnd: function(evt) {
                 const subjectId = container.dataset.subjectId;
                 const taskId = evt.item.dataset.taskId;
