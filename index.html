@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>Мое Расписание</h1>
+        <div class="header-actions">
+            <button id="import-btn" class="btn btn-ghost" title="Загрузить из файла">📂</button>
+            <button id="export-btn" class="btn btn-ghost" title="Скачать файл">💾</button>
+            <button id="add-subject-btn" class="btn btn-primary">+ Предмет</button>
+        </div>
+    </header>
+    <input type="file" id="file-input" accept=".json" style="display: none;">
+    <main id="board" class="board-container"></main>
+    <div id="create-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="create-modal-title">Создать</h2>
+                <button class="btn-close" data-close-modal="create-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="create-form">
+                    <div class="form-group">
+                        <label for="create-title">Название</label>
+                        <input type="text" id="create-title" class="form-input" placeholder="Введите название..." required>
+                    </div>
+                    <div id="task-fields" class="task-fields-hidden">
+                        <div class="form-group">
+                            <label>Дедлайн</label>
+                            <div class="form-group">
+                                <div class="date-picker-wrapper">
+                                    <button type="button" class="date-picker-btn" id="create-date-picker-btn">
+                                        <span class="icon">📅</span>
+                                        <span id="create-date-btn-text">Выбрать дату</span>
+                                    </button>
+                                    <input type="date" id="create-deadline">
+                                    <button type="button" class="date-clear-btn" id="create-date-clear-btn" style="display: none;">✕</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="create-tags">Теги (через запятую)</label>
+                            <input type="text" id="create-tags" class="form-input" placeholder="срочно, курсовая">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="task-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-task-title">Задача</h2>
+                <button class="btn-close" data-close-modal="task-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Дедлайн</label>
+                    <div class="form-group">
+                        <div class="date-picker-wrapper">
+                            <button type="button" class="date-picker-btn" id="task-date-picker-btn">
+                                <span class="icon">📅</span>
+                                <span id="task-date-btn-text">Выбрать дату</span>
+                            </button>
+                            <input type="date" id="modal-deadline-input">
+                            <button type="button" class="date-clear-btn" id="task-date-clear-btn" style="display: none;">✕</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="modal-tags-input">Теги (через запятую)</label>
+                    <input type="text" id="modal-tags-input" class="form-input" placeholder="срочно, курсовая">
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="checkbox" id="modal-done-checkbox" style="width: 18px; height: 18px;">
+                        <span>Отметить как выполненную</span>
+                    </label>
+                </div>
+                <hr class="divider">
+                <div class="note-section">
+                    <h3>Заметка</h3>
+                    <textarea id="task-note-textarea" class="form-input" rows="6" placeholder="Напишите заметку к задаче..."></textarea>
+                </div>
+                <button class="btn btn-primary btn-full" id="save-task-btn">Сохранить</button>
+            </div>
+        </div>
+    </div>
+    <div id="confirm-modal" class="modal hidden">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2 id="confirm-modal-title">Подтверждение</h2>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-modal-message" class="confirm-message">Вы уверены?</p>
+                <div class="actions-row">
+                    <button class="btn btn-ghost" id="confirm-cancel-btn">Отмена</button>
+                    <button class="btn btn-danger" id="confirm-ok-btn">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="success-modal" class="modal hidden">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>✅ Успешно</h2>
+            </div>
+            <div class="modal-body">
+                <p id="success-modal-message" class="confirm-message">Действие выполнено.</p>
+                <div class="actions-row">
+                    <button class="btn btn-primary" id="success-ok-btn">Отлично</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="data.js"></script>
+    <script src="ui.js"></script>
+    <script src="modals.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
